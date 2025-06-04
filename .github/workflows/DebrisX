@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><www.vision.ai.com>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DebrisX | Designing the Future of Space Debris Cleaning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --font-primary: 'Orbitron', 'Cairo', sans-serif;
+      --glow: 0 0 12px #00aaff, 0 0 24px #00aaff66;
+      --glass: rgba(20, 31, 53, 0.85);
+    }
+    body {
+      margin: 0;
+      font-family: var(--font-primary);
+      background: linear-gradient(120deg, #0e1a2b 70%, #141f35 100%);
+      color: #d0d0d0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    [lang="ar"] {
+      direction: rtl;
+      font-family: 'Cairo', sans-serif;
+    }
+    nav {
+      background: rgba(20, 31, 53, 0.97);
+      backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--glow);
+    }
+    nav a {
+      color: #00aaff;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #fff;
+      text-shadow: var(--glow);
+    }
+    [lang="ar"] nav a {
+      margin-left: 0;
+      margin-right: 1.5rem;
+    }
+    .language-switch {
+      background: none;
+      border: 1px solid #00aaff;
+      color: #00aaff;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-primary);
+      transition: background 0.3s, color 0.3s;
+    }
+    .language-switch:hover {
+      background: #00aaff;
+      color: #fff;
+    }
+    /* NASA-style animated stars background */
+    .stars {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero {
+      background: linear-gradient(180deg, #0e1a2b 40%, #1c2a3f90 100%), url('https://images.unsplash.com/photo-1600423115367-f20b0c15a193') no-repeat center center/cover;
+      height: 82vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      text-shadow: 0 0 8px #000;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+    .hero-content {
+      background: var(--glass);
+      padding: 2.5rem 3rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 40px #00aaff11;
+      border: 2px solid #00aaff33;
+      animation: fadeInUp 1.5s cubic-bezier(.4,2,.6,1) both;
+      backdrop-filter: blur(4px);
+    }
+    .hero h1 {
+      font-size: 3.2rem;
+      letter-spacing: 2px;
+      margin: 0 0 1rem 0;
+      text-transform: uppercase;
+      text-shadow: var(--glow);
+    }
+    .hero .subtitle {
+      font-size: 1.5rem;
+      color: #00aaff;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 10px #00aaff66;
+    }
+    .cta-btn {
+      background: linear-gradient(90deg, #00aaff 70%, #004466 100%);
+      color: #fff;
+      border: none;
+      padding: 1rem 2.2rem;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-family: var(--font-primary);
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      margin-top: 1.2rem;
+      cursor: pointer;
+      box-shadow: var(--glow);
+      transition: background 0.3s, transform 0.3s;
+      text-transform: uppercase;
+    }
+    .cta-btn:hover {
+      background: #fff;
+      color: #00aaff;
+      transform: scale(1.06);
+    }
+    .section {
+      padding: 4rem 2rem;
+      max-width: 1100px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+    .section h2 {
+      color: #00aaff;
+      margin-bottom: 1.2rem;
+      font-size: 2.2rem;
+      text-shadow: var(--glow);
+    }
+    .vision-card {
+      background: var(--glass);
+      padding: 1.5rem 2.5rem;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px #00aaff22;
+      margin-top: 1.2rem;
+      border-left: 4px solid #00aaff;
+      animation: fadeInUp 1.5s cubic-bezier(.4,2,.6,1) both;
+    }
+    .vision-card video {
+      margin: 1.5rem 0 0 0;
+      border-radius: 10px;
+      border: 1px solid #00aaff55;
+      box-shadow: 0 0 20px #00aaff22;
+    }
+    .mvp-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .mvp-card {
+      background: linear-gradient(145deg, #1c2a3f 70%, #243756 100%);
+      padding: 2.2rem 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 36px #00aaff15;
+      border-top: 3px solid #00aaff;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
+      z-index: 1;
+    }
+    .mvp-card:hover {
+      transform: translateY(-7px) scale(1.03);
+      box-shadow: 0 12px 36px #00aaff44;
+    }
+    .mvp-card i {
+      position: absolute;
+      top: 20px; right: 25px;
+      font-size: 2.8rem;
+      color: #00aaff33;
+      z-index: 0;
+    }
+    .team-info {
+      background: var(--glass);
+      padding: 2rem 2.5rem;
+      border-radius: 14px;
+      margin-top: 2rem;
+      box-shadow: 0 2px 20px #00aaff11;
+      border-left: 3px solid #00aaff99;
+    }
+    .team-member {
+      margin-bottom: 1.5rem;
+    }
+    .team-member h3 {
+      margin-bottom: .3rem;
+      color: #00aaffcc;
+      text-shadow: var(--glow);
+    }
+    .team-member p {
+      color: #fff;
+      font-weight: 600;
+    }
+    /* Glassmorphism for chatbot */
+    .chatbot {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 370px;
+      background: var(--glass);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px #00aaff22;
+      display: none;
+      z-index: 1000;
+      border: 1px solid #00aaff55;
+      backdrop-filter: blur(6px);
+    }
+    [lang="ar"] .chatbot {
+      right: auto;
+      left: 20px;
+    }
+    .chat-header {
+      background: linear-gradient(90deg, #00aaff 80%, #005577 100%);
+      color: white;
+      padding: 1rem;
+      border-radius: 16px 16px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .chat-body {
+      height: 300px;
+      overflow-y: auto;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+    .chat-input {
+      padding: 1rem;
+      border-top: 1px solid #243756;
+    }
+    .chat-input input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #00aaff;
+      border-radius: 4px;
+      background: #243756;
+      color: white;
+    }
+    .chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00aaff;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px #00aaff33;
+      z-index: 999;
+      font-size: 2.2rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .chat-toggle:hover {
+      background: #fff;
+      color: #00aaff;
+      transform: scale(1.06);
+    }
+    [lang="ar"] .chat-toggle {
+      right: auto;
+      left: 20px;
+    }
+    footer {
+      background: #141f35;
+      color: #888;
+      padding: 2rem;
+      text-align: center;
+      letter-spacing: 1px;
+      font-size: 1.1rem;
+      border-top: 1px solid #00aaff22;
+      margin-top: 2rem;
+    }
+    /* Animations */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(60px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas class="stars"></canvas>
+  <nav>
+    <div><strong style="font-size:1.3rem;letter-spacing:2px;color:#fff;text-shadow:var(--glow);"><i class="fa-solid fa-satellite"></i> DebrisX</strong></div>
+    <div style="display: flex; align-items: center;">
+      <a href="#vision" data-en="Vision AI" data-ar="الرؤية الذكية">Vision AI</a>
+      <a href="#problem" data-en="The Problem" data-ar="المشكلة">The Problem</a>
+      <a href="#solution" data-en="Our Solution" data-ar="حلنا">Our Solution</a>
+      <a href="#mvp" data-en="MVP" data-ar="المنتج">MVP</a>
+      <a href="#team" data-en="Team" data-ar="الفريق">Team</a>
+      <a href="#contact" data-en="Contact" data-ar="تواصل معنا">Contact</a>
+      <button onclick="toggleLanguage()" class="language-switch" style="margin-left: 1.5rem;">عربي/EN</button>
+    </div>
+  </nav>
+  <section class="hero">
+    <div class="hero-content">
+      <h1 data-en="Designing the Future of Space Debris Cleaning" data-ar="نصمم مستقبل تنظيف الحطام الفضائي">Designing the Future of Space Debris Cleaning</h1>
+      <div class="subtitle" data-en="AI-Driven | Autonomous | Orbital Safety" data-ar="مدعوم بالذكاء الاصطناعي | مستقل | أمان مداري">AI-Driven | Autonomous | Orbital Safety</div>
+      <a href="#vision" class="cta-btn" data-en="Explore Vision AI" data-ar="اكتشف الرؤية الذكية">Explore Vision AI</a>
+    </div>
+  </section>
+  <section class="section" id="vision">
+    <h2 data-en="Vision AI Net" data-ar="شبكة الرؤية الذكية">Vision AI Net</h2>
+    <div class="vision-card">
+      <p data-en="<strong>Vision AI Net</strong> is our proprietary intelligence engine designed to detect, predict, and assist robotic operations in clearing orbital debris. It leverages a distributed sensor web and advanced neural networks for real-time situational awareness." 
+      data-ar="شبكة الرؤية الذكية هي محرك الذكاء المملوك لنا والمصمم لاكتشاف وتوقع ومساعدة الروبوتات في إزالة الحطام المداري. يعتمد على شبكة استشعار موزعة وشبكات عصبية متطورة للوعي اللحظي."><strong>Vision AI Net</strong> is our proprietary intelligence engine designed to detect, predict, and assist robotic operations in clearing orbital debris. It leverages a distributed sensor web and advanced neural networks for real-time situational awareness.</p>
+      <p data-en="Our Vision AI is currently integrated into simulated testbeds and is ready for deployment in coordination with autonomous orbital robots." data-ar="تم دمج نظام الرؤية الذكية لدينا في بيئات اختبار محاكاة وهو جاهز للنشر بالتنسيق مع الروبوتات المدارية المستقلة.">Our Vision AI is currently integrated into simulated testbeds and is ready for deployment in coordination with autonomous orbital robots.</p>
+      <video width="100%" controls poster="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80">
+        <source src="https://www.debrisx.space/vision-ai-demo.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
+  <section class="section" id="problem">
+    <h2 data-en="The Problem" data-ar="المشكلة">The Problem</h2>
+    <p data-en="There are over 36,000 pieces of trackable space debris in Earth's orbit, costing $1.5 billion annually in damage and threat to satellites and future missions. With the rise of megaconstellations, this problem is accelerating rapidly." data-ar="يوجد أكثر من 36,000 قطعة من الحطام الفضائي القابل للتتبع في مدار الأرض، مما يكلف 1.5 مليار دولار سنوياً من الأضرار ويهدد الأقمار الصناعية والبعثات المستقبلية. مع ازدياد الكوكبات الضخمة، يتسارع هذا التهديد بسرعة.">There are over 36,000 pieces of trackable space debris in Earth's orbit, costing $1.5 billion annually in damage and threat to satellites and future missions. With the rise of megaconstellations, this problem is accelerating rapidly.</p>
+  </section>
+  <section class="section" id="solution">
+    <h2 data-en="Our Solution" data-ar="حلنا">Our Solution</h2>
+    <p data-en="DebrisX utilizes AI-enhanced tracking, predictive analytics, and autonomous robots to intercept and neutralize space debris with 40% lower cost and higher efficiency than legacy solutions." data-ar="تستخدم DebrisX التتبع المعزز بالذكاء الاصطناعي والتحليلات التنبؤية والروبوتات المستقلة لاعتراض وتحييد الحطام الفضائي بتكلفة أقل بنسبة 40% وكفاءة أعلى من الحلول التقليدية.">DebrisX utilizes AI-enhanced tracking, predictive analytics, and autonomous robots to intercept and neutralize space debris with 40% lower cost and higher efficiency than legacy solutions.</p>
+  </section>
+  <section class="section" id="mvp">
+    <h2 data-en="Minimum Viable Product" data-ar="المنتج الأولي">Minimum Viable Product</h2>
+    <div class="mvp-section">
+      <div class="mvp-card">
+        <i class="fa-solid fa-eye"></i>
+        <h3 data-en="Debris Detection System" data-ar="نظام كشف الحطام">Debris Detection System</h3>
+        <p data-en="AI-powered optical tracking system capable of identifying debris as small as 1cm in diameter with 99% accuracy." data-ar="نظام تتبع بصري مدعوم بالذكاء الاصطناعي قادر على تحديد الحطام الذي يصل قطره إلى 1سم بدقة 99%.">AI-powered optical tracking system capable of identifying debris as small as 1cm in diameter with 99% accuracy.</p>
+      </div>
+      <div class="mvp-card">
+        <i class="fa-solid fa-rocket"></i>
+        <h3 data-en="Trajectory Prediction" data-ar="التنبؤ بالمسار">Trajectory Prediction</h3>
+        <p data-en="Real-time orbital path calculation and collision risk assessment using our proprietary Vision AI Net." data-ar="حساب المسار المداري في الوقت الفعلي وتقييم خطر التصادم باستخدام شبكة الرؤية الذكية المملوكة لنا.">Real-time orbital path calculation and collision risk assessment using our proprietary Vision AI Net.</p>
+      </div>
+      <div class="mvp-card">
+        <i class="fa-solid fa-robot"></i>
+        <h3 data-en="Autonomous Navigation" data-ar="الملاحة المستقلة">Autonomous Navigation</h3>
+        <p data-en="Self-guided debris interception system with advanced obstacle avoidance and fuel optimization." data-ar="نظام اعتراض الحطام ذاتي التوجيه مع تجنب العقبات وتحسين استهلاك الوقود.">Self-guided debris interception system with advanced obstacle avoidance and fuel optimization.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="team">
+    <h2 data-en="Our Team" data-ar="فريقنا">Our Team</h2>
+    <div class="team-info">
+      <div class="team-member">
+        <h3 data-en="CEO/Founder" data-ar="الرئيس التنفيذي/المؤسس">CEO/Founder</h3>
+        <p>ABD ELRAHMAN KHALID</p>
+      </div>
+      <div class="team-member">
+        <h3 data-en="Relationship Manager" data-ar="مدير العلاقات">Relationship Manager</h3>
+        <p>KHALID SABER</p>
+      </div>
+      <div class="team-member">
+        <h3 data-en="Lead AI Engineer" data-ar="مهندس الذكاء الاصطناعي الرئيسي">Lead AI Engineer</h3>
+        <p>AI Generated Astronaut</p>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="contact">
+    <h2 data-en="Contact Us" data-ar="تواصل معنا">Contact Us</h2>
+    <p data-en="For partnerships, investments, or technical inquiries:" data-ar="للشراكات والاستثمارات أو الاستفسارات التقنية:"></p>
+    <p>📧 E: gaballpasha@gmail.com</p>
+    <p>📱 T: +201030276276</p>
+    <p data-en="Follow our journey on" data-ar="تابع رحلتنا على">
+      <a href="https://linkedin.com/company/debrisx" target="_blank" style="color: #00aaff;"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+    </p>
+  </section>
+  <button class="chat-toggle" onclick="toggleChat()"><i class="fa-solid fa-robot"></i></button>
+  <div class="chatbot" id="chatbot">
+    <div class="chat-header">
+      <span data-en="Chat with CEO" data-ar="تحدث مع الرئيس التنفيذي">Chat with CEO</span>
+      <button onclick="toggleChat()" style="background: none; border: none; color: white; cursor: pointer;">✕</button>
+    </div>
+    <div class="chat-body" id="chat-body"></div>
+    <div class="chat-input">
+      <input type="text" placeholder="Type your message..." data-en-placeholder="Type your message..." data-ar-placeholder="اكتب رسالتك..." onkeypress="handleKeyPress(event)" id="chat-input" />
+    </div>
+  </div>
+  <footer>
+    <span data-en="&copy; 2025 DebrisX. All rights reserved." data-ar="© 2025 DebrisX. جميع الحقوق محفوظة.">&copy; 2025 DebrisX. All rights reserved.</span>
+  </footer>
+  <script>
+    // Animated NASA-style stars
+    const c = document.querySelector('.stars');
+    const ctx = c.getContext('2d');
+    let w = window.innerWidth, h = window.innerHeight;
+    c.width = w; c.height = h;
+    const stars = Array.from({length: 200}, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.8 + 0.5,
+      o: Math.random() * 0.5 + 0.5,
+      twinkle: Math.random() * 100
+    }));
+    function drawStars() {
+      ctx.clearRect(0,0,w,h);
+      stars.forEach(star => {
+        ctx.globalAlpha = star.o + Math.sin(Date.now()/800 + star.twinkle) * 0.2;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
+        ctx.fillStyle = '#fff';
+        ctx.shadowColor = '#00aaff';
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+      requestAnimationFrame(drawStars);
+    }
+    drawStars();
+    window.addEventListener('resize', () => {
+      w = window.innerWidth; h = window.innerHeight;
+      c.width = w; c.height = h;
+    });
+
+    let currentLang = 'en';
+    function toggleLanguage() {
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      document.body.setAttribute('lang', currentLang);
+      updateContent();
+    }
+    function updateContent() {
+      const elements = document.querySelectorAll('[data-en]');
+      elements.forEach(element => {
+        const content = element.getAttribute(`data-${currentLang}`);
+        if (content) element.innerHTML = content;
+      });
+      document.querySelectorAll('input[data-en-placeholder]').forEach(input => {
+        input.placeholder = input.getAttribute(`data-${currentLang}-placeholder`);
+      });
+    }
+    function toggleChat() {
+      const chatbot = document.getElementById('chatbot');
+      const chatToggle = document.querySelector('.chat-toggle');
+      chatbot.style.display = chatbot.style.display === 'none' ? 'block' : 'none';
+      chatToggle.style.display = chatbot.style.display === 'none' ? 'block' : 'none';
+    }
+    function addMessage(message, isUser = false) {
+      const chatBody = document.getElementById('chat-body');
+      const messageDiv = document.createElement('div');
+      messageDiv.style.margin = '10px';
+      messageDiv.style.padding = '10px';
+      messageDiv.style.borderRadius = '10px';
+      messageDiv.style.maxWidth = '80%';
+      messageDiv.style.wordWrap = 'break-word';
+      if (isUser) {
+        messageDiv.style.marginLeft = currentLang === 'ar' ? '0' : 'auto';
+        messageDiv.style.marginRight = currentLang === 'ar' ? 'auto' : '0';
+        messageDiv.style.backgroundColor = '#00aaff';
+        messageDiv.style.color = 'white';
+      } else {
+        messageDiv.style.backgroundColor = '#243756';
+        messageDiv.style.color = '#d0d0d0';
+      }
+      messageDiv.textContent = message;
+      chatBody.appendChild(messageDiv);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        const input = document.getElementById('chat-input');
+        const message = input.value.trim();
+        if (message) {
+          addMessage(message, true);
+          input.value = '';
+          setTimeout(() => {
+            const responses = {
+              'hello': currentLang === 'ar' 
+                ? 'مرحباً! أنا عبد الرحمن خالد، الرئيس التنفيذي لـ DebrisX. كيف يمكنني مساعدتك اليوم؟'
+                : 'Hello! I\'m Abd ElRahman Khalid, CEO of DebrisX. How can I help you today?',
+              'hi': currentLang === 'ar'
+                ? 'أهلاً! أنا عبد الرحمن خالد، الرئيس التنفيذي لـ DebrisX. ماذا تريد أن تعرف عن حلنا لتنظيف الحطام الفضائي؟'
+                : 'Hi there! I\'m Abd ElRahman Khalid, CEO of DebrisX. What would you like to know about our space debris cleaning solution?',
+              'investment': currentLang === 'ar'
+                ? 'نحن حالياً في جولة تمويل السلسلة A. أظهر <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DebrisX | Designing the Future of Space Debris Cleaning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --font-primary: 'Orbitron', 'Cairo', sans-serif;
+      --glow: 0 0 12px #00aaff, 0 0 24px #00aaff66;
+      --glass: rgba(20, 31, 53, 0.85);
+    }
+    body {
+      margin: 0;
+      font-family: var(--font-primary);
+      background: linear-gradient(120deg, #0e1a2b 70%, #141f35 100%);
+      color: #d0d0d0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    [lang="ar"] {
+      direction: rtl;
+      font-family: 'Cairo', sans-serif;
+    }
+    nav {
+      background: rgba(20, 31, 53, 0.97);
+      backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--glow);
+    }
+    nav a {
+      color: #00aaff;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #fff;
+      text-shadow: var(--glow);
+    }
+    [lang="ar"] nav a {
+      margin-left: 0;
+      margin-right: 1.5rem;
+    }
+    .language-switch {
+      background: none;
+      border: 1px solid #00aaff;
+      color: #00aaff;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-primary);
+      transition: background 0.3s, color 0.3s;
+    }
+    .language-switch:hover {
+      background: #00aaff;
+      color: #fff;
+    }
+    /* NASA-style animated stars background */
+    .stars {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero {
+      background: linear-gradient(180deg, #0e1a2b 40%, #1c2a3f90 100%), url('https://images.unsplash.com/photo-1600423115367-f20b0c15a193') no-repeat center center/cover;
+      height: 82vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      text-shadow: 0 0 8px #000;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+    .hero-content {
+      background: var(--glass);
+      padding: 2.5rem 3rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 40px #00aaff11;
+      border: 2px solid #00aaff33;
+      animation: fadeInUp 1.5s cubic-bezier(.4,2,.6,1) both;
+      backdrop-filter: blur(4px);
+    }
+    .hero h1 {
+      font-size: 3.2rem;
+      letter-spacing: 2px;
+      margin: 0 0 1rem 0;
+      text-transform: uppercase;
+      text-shadow: var(--glow);
+    }
+    .hero .subtitle {
+      font-size: 1.5rem;
+      color: #00aaff;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 10px #00aaff66;
+    }
+    .cta-btn {
+      background: linear-gradient(90deg, #00aaff 70%, #004466 100%);
+      color: #fff;
+      border: none;
+      padding: 1rem 2.2rem;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-family: var(--font-primary);
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      margin-top: 1.2rem;
+      cursor: pointer;
+      box-shadow: var(--glow);
+      transition: background 0.3s, transform 0.3s;
+      text-transform: uppercase;
+    }
+    .cta-btn:hover {
+      background: #fff;
+      color: #00aaff;
+      transform: scale(1.06);
+    }
+    .section {
+      padding: 4rem 2rem;
+      max-width: 1100px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+    .section h2 {
+      color: #00aaff;
+      margin-bottom: 1.2rem;
+      font-size: 2.2rem;
+      text-shadow: var(--glow);
+    }
+    .vision-card {
+      background: var(--glass);
+      padding: 1.5rem 2.5rem;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px #00aaff22;
+      margin-top: 1.2rem;
+      border-left: 4px solid #00aaff;
+      animation: fadeInUp 1.5s cubic-bezier(.4,2,.6,1) both;
+    }
+    .vision-card video {
+      margin: 1.5rem 0 0 0;
+      border-radius: 10px;
+      border: 1px solid #00aaff55;
+      box-shadow: 0 0 20px #00aaff22;
+    }
+    .mvp-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .mvp-card {
+      background: linear-gradient(145deg, #1c2a3f 70%, #243756 100%);
+      padding: 2.2rem 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 36px #00aaff15;
+      border-top: 3px solid #00aaff;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
+      z-index: 1;
+    }
+    .mvp-card:hover {
+      transform: translateY(-7px) scale(1.03);
+      box-shadow: 0 12px 36px #00aaff44;
+    }
+    .mvp-card i {
+      position: absolute;
+      top: 20px; right: 25px;
+      font-size: 2.8rem;
+      color: #00aaff33;
+      z-index: 0;
+    }
+    .team-info {
+      background: var(--glass);
+      padding: 2rem 2.5rem;
+      border-radius: 14px;
+      margin-top: 2rem;
+      box-shadow: 0 2px 20px #00aaff11;
+      border-left: 3px solid #00aaff99;
+    }
+    .team-member {
+      margin-bottom: 1.5rem;
+    }
+    .team-member h3 {
+      margin-bottom: .3rem;
+      color: #00aaffcc;
+      text-shadow: var(--glow);
+    }
+    .team-member p {
+      color: #fff;
+      font-weight: 600;
+    }
+    /* Glassmorphism for chatbot */
+    .chatbot {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 370px;
+      background: var(--glass);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px #00aaff22;
+      display: none;
+      z-index: 1000;
+      border: 1px solid #00aaff55;
+      backdrop-filter: blur(6px);
+    }
+    [lang="ar"] .chatbot {
+      right: auto;
+      left: 20px;
+    }
+    .chat-header {
+      background: linear-gradient(90deg, #00aaff 80%, #005577 100%);
+      color: white;
+      padding: 1rem;
+      border-radius: 16px 16px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .chat-body {
+      height: 300px;
+      overflow-y: auto;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+    .chat-input {
+      padding: 1rem;
+      border-top: 1px solid #243756;
+    }
+    .chat-input input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #00aaff;
+      border-radius: 4px;
+      background: #243756;
+      color: white;
+    }
+    .chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00aaff;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px #00aaff33;
+      z-index: 999;
+      font-size: 2.2rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .chat-toggle:hover {
+      background: #fff;
+      color: #00aaff;
+      transform: scale(1.06);
+    }
+    [lang="ar"] .chat-toggle {
+      right: auto;
+      left: 20px;
+    }
+    footer {
+      background: #141f35;
+      color: #888;
+      padding: 2rem;
+      text-align: center;
+      letter-spacing: 1px;
+      font-size: 1.1rem;
+      border-top: 1px solid #00aaff22;
+      margin-top: 2rem;
+    }
+    /* Animations */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(60px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas class="stars"></canvas>
+  <nav>
+    <div><strong style="font-size:1.3rem;letter-spacing:2px;color:#fff;text-shadow:var(--glow);"><i class="fa-solid fa-satellite"></i> DebrisX</strong></div>
+    <div style="display: flex; align-items: center;">
+      <a href="#vision" data-en="Vision AI" data-ar="الرؤية الذكية">Vision AI</a>
+      <a href="#problem" data-en="The Problem" data-ar="المشكلة">The Problem</a>
+      <a href="#solution" data-en="Our Solution" data-ar="حلنا">Our Solution</a>
+      <a href="#mvp" data-en="MVP" data-ar="المنتج">MVP</a>
+      <a href="#team" data-en="Team" data-ar="الفريق">Team</a>
+      <a href="#contact" data-en="Contact" data-ar="تواصل معنا">Contact</a>
+      <button onclick="toggleLanguage()" class="language-switch" style="margin-left: 1.5rem;">عربي/EN</button>
+    </div>
+  </nav>
+  <section class="hero">
+    <div class="hero-content">
+      <h1 data-en="Designing the Future of Space Debris Cleaning" data-ar="نصمم مستقبل تنظيف الحطام الفضائي">Designing the Future of Space Debris Cleaning</h1>
+      <div class="subtitle" data-en="AI-Driven | Autonomous | Orbital Safety" data-ar="مدعوم بالذكاء الاصطناعي | مستقل | أمان مداري">AI-Driven | Autonomous | Orbital Safety</div>
+      <a href="#vision" class="cta-btn" data-en="Explore Vision AI" data-ar="اكتشف الرؤية الذكية">Explore Vision AI</a>
+    </div>
+  </section>
+  <section class="section" id="vision">
+    <h2 data-en="Vision AI Net" data-ar="شبكة الرؤية الذكية">Vision AI Net</h2>
+    <div class="vision-card">
+      <p data-en="<strong>Vision AI Net</strong> is our proprietary intelligence engine designed to detect, predict, and assist robotic operations in clearing orbital debris. It leverages a distributed sensor web and advanced neural networks for real-time situational awareness." 
+      data-ar="شبكة الرؤية الذكية هي محرك الذكاء المملوك لنا والمصمم لاكتشاف وتوقع ومساعدة الروبوتات في إزالة الحطام المداري. يعتمد على شبكة استشعار موزعة وشبكات عصبية متطورة للوعي اللحظي."><strong>Vision AI Net</strong> is our proprietary intelligence engine designed to detect, predict, and assist robotic operations in clearing orbital debris. It leverages a distributed sensor web and advanced neural networks for real-time situational awareness.</p>
+      <p data-en="Our Vision AI is currently integrated into simulated testbeds and is ready for deployment in coordination with autonomous orbital robots." data-ar="تم دمج نظام الرؤية الذكية لدينا في بيئات اختبار محاكاة وهو جاهز للنشر بالتنسيق مع الروبوتات المدارية المستقلة.">Our Vision AI is currently integrated into simulated testbeds and is ready for deployment in coordination with autonomous orbital robots.</p>
+      <video width="100%" controls poster="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80">
+        <source src="https://www.debrisx.space/vision-ai-demo.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
+  <section class="section" id="problem">
+    <h2 data-en="The Problem" data-ar="المشكلة">The Problem</h2>
+    <p data-en="There are over 36,000 pieces of trackable space debris in Earth's orbit, costing $1.5 billion annually in damage and threat to satellites and future missions. With the rise of megaconstellations, this problem is accelerating rapidly." data-ar="يوجد أكثر من 36,000 قطعة من الحطام الفضائي القابل للتتبع في مدار الأرض، مما يكلف 1.5 مليار دولار سنوياً من الأضرار ويهدد الأقمار الصناعية والبعثات المستقبلية. مع ازدياد الكوكبات الضخمة، يتسارع هذا التهديد بسرعة.">There are over 36,000 pieces of trackable space debris in Earth's orbit, costing $1.5 billion annually in damage and threat to satellites and future missions. With the rise of megaconstellations, this problem is accelerating rapidly.</p>
+  </section>
+  <section class="section" id="solution">
+    <h2 data-en="Our Solution" data-ar="حلنا">Our Solution</h2>
+    <p data-en="DebrisX utilizes AI-enhanced tracking, predictive analytics, and autonomous robots to intercept and neutralize space debris with 40% lower cost and higher efficiency than legacy solutions." data-ar="تستخدم DebrisX التتبع المعزز بالذكاء الاصطناعي والتحليلات التنبؤية والروبوتات المستقلة لاعتراض وتحييد الحطام الفضائي بتكلفة أقل بنسبة 40% وكفاءة أعلى من الحلول التقليدية.">DebrisX utilizes AI-enhanced tracking, predictive analytics, and autonomous robots to intercept and neutralize space debris with 40% lower cost and higher efficiency than legacy solutions.</p>
+  </section>
+  <section class="section" id="mvp">
+    <h2 data-en="Minimum Viable Product" data-ar="المنتج الأولي">Minimum Viable Product</h2>
+    <div class="mvp-section">
+      <div class="mvp-card">
+        <i class="fa-solid fa-eye"></i>
+        <h3 data-en="Debris Detection System" data-ar="نظام كشف الحطام">Debris Detection System</h3>
+        <p data-en="AI-powered optical tracking system capable of identifying debris as small as 1cm in diameter with 99% accuracy." data-ar="نظام تتبع بصري مدعوم بالذكاء الاصطناعي قادر على تحديد الحطام الذي يصل قطره إلى 1سم بدقة 99%.">AI-powered optical tracking system capable of identifying debris as small as 1cm in diameter with 99% accuracy.</p>
+      </div>
+      <div class="mvp-card">
+        <i class="fa-solid fa-rocket"></i>
+        <h3 data-en="Trajectory Prediction" data-ar="التنبؤ بالمسار">Trajectory Prediction</h3>
+        <p data-en="Real-time orbital path calculation and collision risk assessment using our proprietary Vision AI Net." data-ar="حساب المسار المداري في الوقت الفعلي وتقييم خطر التصادم باستخدام شبكة الرؤية الذكية المملوكة لنا.">Real-time orbital path calculation and collision risk assessment using our proprietary Vision AI Net.</p>
+      </div>
+      <div class="mvp-card">
+        <i class="fa-solid fa-robot"></i>
+        <h3 data-en="Autonomous Navigation" data-ar="الملاحة المستقلة">Autonomous Navigation</h3>
+        <p data-en="Self-guided debris interception system with advanced obstacle avoidance and fuel optimization." data-ar="نظام اعتراض الحطام ذاتي التوجيه مع تجنب العقبات وتحسين استهلاك الوقود.">Self-guided debris interception system with advanced obstacle avoidance and fuel optimization.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="team">
+    <h2 data-en="Our Team" data-ar="فريقنا">Our Team</h2>
+    <div class="team-info">
+      <div class="team-member">
+        <h3 data-en="CEO/Founder" data-ar="الرئيس التنفيذي/المؤسس">CEO/Founder</h3>
+        <p>ABD ELRAHMAN KHALID</p>
+      </div>
+      <div class="team-member">
+        <h3 data-en="Relationship Manager" data-ar="مدير العلاقات">Relationship Manager</h3>
+        <p>KHALID SABER</p>
+      </div>
+      <div class="team-member">
+        <h3 data-en="Lead AI Engineer" data-ar="مهندس الذكاء الاصطناعي الرئيسي">Lead AI Engineer</h3>
+        <p>AI Generated Astronaut</p>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="contact">
+    <h2 data-en="Contact Us" data-ar="تواصل معنا">Contact Us</h2>
+    <p data-en="For partnerships, investments, or technical inquiries:" data-ar="للشراكات والاستثمارات أو الاستفسارات التقنية:"></p>
+    <p>📧 E: gaballpasha@gmail.com</p>
+    <p>📱 T: +201030276276</p>
+    <p data-en="Follow our journey on" data-ar="تابع رحلتنا على">
+      <a href="https://linkedin.com/company/debrisx" target="_blank" style="color: #00aaff;"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+    </p>
+  </section>
+  <button class="chat-toggle" onclick="toggleChat()"><i class="fa-solid fa-robot"></i></button>
+  <div class="chatbot" id="chatbot">
+    <div class="chat-header">
+      <span data-en="Chat with CEO" data-ar="تحدث مع الرئيس التنفيذي">Chat with CEO</span>
+      <button onclick="toggleChat()" style="background: none; border: none; color: white; cursor: pointer;">✕</button>
+    </div>
+    <div class="chat-body" id="chat-body"></div>
+    <div class="chat-input">
+      <input type="text" placeholder="Type your message..." data-en-placeholder="Type your message..." data-ar-placeholder="اكتب رسالتك..." onkeypress="handleKeyPress(event)" id="chat-input" />
+    </div>
+  </div>
+  <footer>
+    <span data-en="&copy; 2025 DebrisX. All rights reserved." data-ar="© 2025 DebrisX. جميع الحقوق محفوظة.">&copy; 2025 DebrisX. All rights reserved.</span>
+  </footer>
+  <script>
+    // Animated NASA-style stars
+    const c = document.querySelector('.stars');
+    const ctx = c.getContext('2d');
+    let w = window.innerWidth, h = window.innerHeight;
+    c.width = w; c.height = h;
+    const stars = Array.from({length: 200}, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.8 + 0.5,
+      o: Math.random() * 0.5 + 0.5,
+      twinkle: Math.random() * 100
+    }));
+    function drawStars() {
+      ctx.clearRect(0,0,w,h);
+      stars.forEach(star => {
+        ctx.globalAlpha = star.o + Math.sin(Date.now()/800 + star.twinkle) * 0.2;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
+        ctx.fillStyle = '#fff';
+        ctx.shadowColor = '#00aaff';
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+      requestAnimationFrame(drawStars);
+    }
+    drawStars();
+    window.addEventListener('resize', () => {
+      w = window.innerWidth; h = window.innerHeight;
+      c.width = w; c.height = h;
+    });
+
+    let currentLang = 'en';
+    function toggleLanguage() {
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      document.body.setAttribute('lang', currentLang);
+      updateContent();
+    }
+    function updateContent() {
+      const elements = document.querySelectorAll('[data-en]');
+      elements.forEach(element => {
+        const content = element.getAttribute(`data-${currentLang}`);
+        if (content) element.innerHTML = content;
+      });
+      document.querySelectorAll('input[data-en-placeholder]').forEach(input => {
+        input.placeholder = input.getAttribute(`data-${currentLang}-placeholder`);
+      });
+    }
+    function toggleChat() {
+      const chatbot = document.getElementById('chatbot');
+      const chatToggle = document.querySelector('.chat-toggle');
+      chatbot.style.display = chatbot.style.display === 'none' ? 'block' : 'none';
+      chatToggle.style.display = chatbot.style.display === 'none' ? 'block' : 'none';
+    }
+    function addMessage(message, isUser = false) {
+      const chatBody = document.getElementById('chat-body');
+      const messageDiv = document.createElement('div');
+      messageDiv.style.margin = '10px';
+      messageDiv.style.padding = '10px';
+      messageDiv.style.borderRadius = '10px';
+      messageDiv.style.maxWidth = '80%';
+      messageDiv.style.wordWrap = 'break-word';
+      if (isUser) {
+        messageDiv.style.marginLeft = currentLang === 'ar' ? '0' : 'auto';
+        messageDiv.style.marginRight = currentLang === 'ar' ? 'auto' : '0';
+        messageDiv.style.backgroundColor = '#00aaff';
+        messageDiv.style.color = 'white';
+      } else {
+        messageDiv.style.backgroundColor = '#243756';
+        messageDiv.style.color = '#d0d0d0';
+      }
+      messageDiv.textContent = message;
+      chatBody.appendChild(messageDiv);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        const input = document.getElementById('chat-input');
+        const message = input.value.trim();
+        if (message) {
+          addMessage(message, true);
+          input.value = '';
+          setTimeout(() => {
+            const responses = {
+              'hello': currentLang === 'ar' 
+                ? 'مرحباً! أنا عبد الرحمن خالد، الرئيس التنفيذي لـ DebrisX. كيف يمكنني مساعدتك اليوم؟'
+                : 'Hello! I\'m Abd ElRahman Khalid, CEO of DebrisX. How can I help you today?',
+              'hi': currentLang === 'ar'
+                ? 'أهلاً! أنا عبد الرحمن خالد، الرئيس التنفيذي لـ DebrisX. ماذا تريد أن تعرف عن حلنا لتنظيف الحطام الفضائي؟'
+                : 'Hi there! I\'m Abd ElRahman Khalid, CEO of DebrisX. What would you like to know about our space debris cleaning solution?',
+              'investment': currentLang === 'ar'
+                ? 'نحن حالياً في جولة تمويل السلسلة A. أظهر 
